@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaMotion | Professional Water Systems</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. CORE VARIABLES --- */
+        :root {
+            --navy: #0a192f;
+            --mid-blue: #112d4e;
+            --sky: #3f72af;
+            --bright-sky: #00d2ff;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --text-muted: #8892b0;
+            --text-light: #ccd6f6;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-light);
+            background: radial-gradient(circle at 50% 50%, #112240 0%, #0a192f 50%, #020c1b 100%);
+            background-attachment: fixed; 
+            overflow-x: hidden;
+        }
+
+        /* Animated Bubbles Background Layer */
+        .bg-bubbles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .bg-bubbles li {
+            position: absolute;
+            list-style: none;
+            display: block;
+            width: 40px; height: 40px;
+            background: rgba(0, 210, 255, 0.1);
+            bottom: -160px;
+            animation: bubble-float 25s infinite linear;
+            border-radius: 50%;
+            filter: blur(8px);
+        }
+        .bg-bubbles li:nth-child(1) { left: 10%; width: 80px; height: 80px; animation-delay: 0s; }
+        .bg-bubbles li:nth-child(2) { left: 20%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .bg-bubbles li:nth-child(3) { left: 25%; width: 20px; height: 20px; animation-delay: 4s; }
+        .bg-bubbles li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .bg-bubbles li:nth-child(5) { left: 70%; width: 20px; height: 20px; animation-delay: 0s; }
+        
+        @keyframes bubble-float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-top: 0;
+            color: var(--white);
+        }
+
+        /* --- GLASSMORPHISM UTILITY --- */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid rgba(255,255,255,0.15);
+            box-shadow: var(--glass-shadow);
+            border-radius: 16px;
+        }
+
+        /* --- 2. NAVBAR --- */
+        .navbar-fixed-top {
+            border: none;
+            padding: 20px 0;
+            transition: 0.4s;
+            background: transparent;
+        }
+        .navbar-fixed-top.scrolled {
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--white) !important;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .navbar-brand span { color: var(--bright-sky); }
+        
+        /* NAVBAR FIX - Force Transparent Background */
+        .navbar-nav > li > a {
+            color: rgba(255,255,255,0.8) !important;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        
+        /* IMPORTANT FIX: Specifically target hover and focus to remove white block */
+        .navbar-nav > li > a:hover, 
+        .navbar-nav > li > a:focus,
+        .navbar-nav > li.active > a { 
+            color: var(--bright-sky) !important; 
+            text-shadow: 0 0 15px rgba(0, 210, 255, 0.6); 
+            background-color: transparent !important; /* Force transparent */
+            background: transparent !important;
+        }
+        
+        /* Ensure the list item itself doesn't have a background */
+        .navbar-nav > li:hover,
+        .navbar-nav > li.active {
+            background-color: transparent !important;
+        }
+
+        .btn-nav {
+            border: 1px solid var(--bright-sky);
+            color: var(--bright-sky) !important;
+            border-radius: 30px;
+            padding: 8px 25px !important;
+            margin-left: 10px;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.1);
+        }
+        .btn-nav:hover { background: var(--bright-sky) !important; color: var(--navy) !important; box-shadow: 0 0 20px var(--bright-sky); }
+
+        /* --- 3. HERO SECTION --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--navy) 0%, #1c3b57 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .hero-content { z-index: 2; position: relative; margin-top: -50px; }
+
+        .hero h1 { font-size: 60px; margin-bottom: 20px; animation: fadeInDown 1.2s ease; }
+        
+        .type-text { border-right: 3px solid var(--bright-sky); padding-right: 5px; animation: blink 0.7s infinite; }
+        @keyframes blink { 50% { border-color: transparent; } }
+
+        .hero p {
+            font-size: 18px; color: #a8b2d1; margin-bottom: 40px;
+            max-width: 700px; margin-left: auto; margin-right: auto;
+            animation: fadeInUp 1.2s ease 0.3s backwards;
+        }
+
+        .btn-glow {
+            background: linear-gradient(90deg, var(--sky), var(--bright-sky));
+            color: var(--white); padding: 15px 40px; border-radius: 50px;
+            font-size: 16px; font-weight: 700; text-transform: uppercase;
+            border: none; box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+            animation: pulse 2s infinite; text-decoration: none; display: inline-block;
+        }
+        .btn-glow:hover {
+            color: var(--white); transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.6); text-decoration: none;
+        }
+
+        .waves {
+            position: absolute; bottom: 0; width: 100%; height: 15vh;
+            margin-bottom: -7px; min-height: 100px; max-height: 150px;
+        }
+        .parallax > use { animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite; }
+        .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; fill: rgba(255,255,255,0.7); }
+        .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; fill: rgba(255,255,255,0.5); }
+        .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; fill: rgba(255,255,255,0.3); }
+        .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; fill: #112240; }
+
+        @keyframes move-forever {
+            0% { transform: translate3d(-90px,0,0); } 100% { transform: translate3d(85px,0,0); }
+        }
+
+        /* --- REST OF SECTIONS --- */
+        .partners-section { padding: 50px 0; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .partner-logo { font-size: 24px; color: rgba(255,255,255,0.3); font-weight: 800; text-transform: uppercase; text-align: center; }
+        
+        .tech-section { padding: 100px 0; position: relative; }
+        .section-header h2 { font-size: 36px; margin-bottom: 10px; text-shadow: 0 0 20px rgba(0,210,255,0.3); }
+        .section-header p { color: var(--text-muted); font-size: 16px; }
+        .line-bar { width: 50px; height: 3px; background: #00d2ff; margin: 15px auto; box-shadow: 0 0 10px #00d2ff; }
+
+        .tech-card { padding: 40px 30px; transition: transform 0.1s ease; text-align: center; margin-bottom: 30px; height: 100%; perspective: 1000px; }
+        .tech-card-inner { pointer-events: none; }
+        .tech-icon { width: 80px; height: 80px; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-size: 32px; color: var(--bright-sky); box-shadow: inset 0 0 20px rgba(0,210,255,0.1); }
+        .tech-card p { color: var(--text-muted); }
+
+        .process-section { padding: 100px 0; }
+        .process-step { text-align: center; margin-bottom: 30px; position: relative; padding: 30px 15px; transition: 0.3s; cursor: default; }
+        .process-step:hover { background: rgba(255,255,255,0.02); border-radius: 15px; transform: scale(1.05); }
+        .process-step:hover .step-icon { transform: rotateY(360deg); transition: 0.6s; }
+        .step-num { font-size: 60px; font-weight: 800; color: rgba(255, 255, 255, 0.03); position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 0; }
+        .step-icon { font-size: 40px; color: var(--bright-sky); margin-bottom: 20px; position: relative; z-index: 1; filter: drop-shadow(0 0 10px rgba(0,210,255,0.4)); }
+        .process-step h4 { color: #fff; position: relative; z-index: 1; margin-top: 15px; }
+        .process-step p { color: var(--text-muted); font-size: 13px; position: relative; z-index: 1; }
+
+        .contaminant-section { padding: 100px 0; position: relative; }
+        .progress-holder { margin-bottom: 25px; }
+        .progress-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-weight: 600; color: var(--text-light); }
+        .progress { height: 10px; background: rgba(255,255,255,0.05); border-radius: 10px; box-shadow: none; overflow: visible; border: 1px solid rgba(255,255,255,0.05); }
+        .progress-bar-custom { background: linear-gradient(90deg, var(--sky), var(--bright-sky)); border-radius: 10px; position: relative; box-shadow: 0 0 15px var(--bright-sky); width: 0; transition: width 1.5s ease-in-out; }
+        .shield-icon { font-size: 120px; color: rgba(0,210,255,0.15); text-align: center; animation: float-shield 4s ease-in-out infinite; }
+        @keyframes float-shield { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        .reality-check { padding: 80px 0; background: linear-gradient(to right, rgba(10,25,47,0.9), rgba(10,25,47,0.7)); }
+        .reality-box { border: 1px solid var(--bright-sky); padding: 30px; border-radius: 10px; background: rgba(0, 210, 255, 0.05); }
+
+        .products-section { padding: 100px 0; position: relative; }
+        .product-filters { text-align: center; margin-bottom: 40px; }
+        .filter-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--text-muted); padding: 8px 25px; border-radius: 20px; margin: 0 5px; transition: 0.3s; outline: none; }
+        .filter-btn:hover, .filter-btn.active { background: var(--bright-sky); color: var(--navy); border-color: var(--bright-sky); box-shadow: 0 0 15px rgba(0,210,255,0.4); }
+        .neon-card { padding: 20px; transition: 0.3s; margin-bottom: 30px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .neon-card:hover { background: rgba(255, 255, 255, 0.06); border-color: var(--bright-sky); box-shadow: 0 0 40px rgba(0, 210, 255, 0.15); transform: translateY(-5px); }
+        .prod-img-glow { height: 180px; background: radial-gradient(circle at center, rgba(0, 210, 255, 0.1), transparent 70%); display: flex; align-items: center; justify-content: center; font-size: 70px; color: var(--bright-sky); filter: drop-shadow(0 0 15px var(--bright-sky)); transition: 0.5s; }
+        .neon-card:hover .prod-img-glow { transform: scale(1.1); filter: drop-shadow(0 0 25px var(--bright-sky)); }
+        .price-neon { color: var(--bright-sky); font-size: 22px; font-weight: 700; text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); display: block; margin: 15px 0; }
+        .btn-neon { border: 1px solid var(--bright-sky); color: var(--bright-sky); background: rgba(0, 210, 255, 0.05); padding: 10px 30px; border-radius: 30px; text-transform: uppercase; font-weight: 700; transition: 0.3s; width: 100%; display: block; text-decoration: none; text-align: center; }
+        .btn-neon:hover { background: var(--bright-sky); color: var(--navy); box-shadow: 0 0 20px var(--bright-sky); text-decoration: none; }
+
+        .impact-section { background: linear-gradient(rgba(2, 12, 27, 0.9), rgba(2, 12, 27, 0.9)), url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1920&q=80'); background-attachment: fixed; background-size: cover; padding: 100px 0; text-align: center; }
+        .stat-item { padding: 30px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .stat-item:hover { transform: translateY(-10px); background: rgba(255,255,255,0.06); }
+        .stat-number { font-size: 48px; font-weight: 800; color: var(--bright-sky); display: block; margin-bottom: 10px; text-shadow: 0 0 20px rgba(0,210,255,0.4); }
+        .stat-label { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-light); opacity: 0.8; }
+
+        .reviews-section { padding: 100px 0; }
+        .review-card { padding: 30px; border-left: 5px solid var(--bright-sky); margin-bottom: 30px; height: 100%; }
+        .review-text { font-style: italic; color: var(--text-light); margin-bottom: 20px; }
+        .user-profile { display: flex; align-items: center; }
+        .user-img { width: 50px; height: 50px; border-radius: 50%; margin-right: 15px; display: flex; align-items: center; justify-content: center; color: var(--navy); font-weight: 700; background: var(--bright-sky); box-shadow: 0 0 10px var(--bright-sky); }
+
+        .service-plans-section { padding: 100px 0; }
+        .pricing-toggle { text-align: center; margin-bottom: 40px; display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .toggle-label { font-size: 16px; color: var(--text-light); cursor: pointer; }
+        .toggle-label.active { color: var(--bright-sky); font-weight: 700; }
+        .switch { position: relative; display: inline-block; width: 60px; height: 34px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.2); transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--bright-sky); }
+        input:checked + .slider:before { transform: translateX(26px); }
+        .plan-card { padding: 40px 20px; text-align: center; transition: 0.3s; margin-bottom: 30px; position: relative; }
+        .plan-card:hover { transform: translateY(-10px); }
+        .plan-card.popular { border: 2px solid var(--bright-sky); background: rgba(0, 210, 255, 0.05); transform: scale(1.05); z-index: 2; box-shadow: 0 0 50px rgba(0, 210, 255, 0.1); }
+        .badge-popular { background: var(--bright-sky); color: var(--navy); padding: 5px 15px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); box-shadow: 0 0 10px var(--bright-sky); }
+        .plan-name { font-size: 18px; font-weight: 700; color: #fff; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; }
+        .plan-price { font-size: 42px; font-weight: 800; color: var(--bright-sky); margin-bottom: 20px; text-shadow: 0 0 15px rgba(0,210,255,0.4); }
+        .plan-price small { font-size: 16px; color: var(--text-muted); font-weight: 400; }
+        .plan-features { list-style: none; padding: 0; margin-bottom: 30px; min-height: 160px; }
+        .plan-features li { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); font-size: 14px; }
+        .plan-features li:last-child { border-bottom: none; }
+        .btn-plan { border: 2px solid rgba(255,255,255,0.3); color: #fff; background: transparent; padding: 10px 25px; border-radius: 25px; font-weight: 600; text-transform: uppercase; transition: 0.3s; display: inline-block; }
+        .plan-card.popular .btn-plan { background: var(--bright-sky); border-color: var(--bright-sky); color: var(--navy); box-shadow: 0 0 15px rgba(0,210,255,0.4); }
+        .btn-plan:hover { background: #fff; border-color: #fff; color: var(--navy); text-decoration: none; }
+
+        .faq-section { padding: 100px 0; }
+        .panel-group .panel { background-color: transparent; border: none; box-shadow: none; margin-bottom: 20px; }
+        .panel-default > .panel-heading { background-color: var(--glass-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: #fff; border: 1px solid var(--glass-border); border-radius: 10px; padding: 15px 20px; transition: 0.3s; cursor: pointer; }
+        .panel-default > .panel-heading:hover { border-color: var(--bright-sky); background: rgba(255,255,255,0.05); }
+        .panel-title a { display: block; text-decoration: none; font-weight: 600; font-size: 15px; }
+        .panel-title a:hover { color: var(--bright-sky); }
+        .panel-default > .panel-heading + .panel-collapse > .panel-body { border-top: none; background: rgba(0,0,0,0.2); border-radius: 0 0 10px 10px; color: var(--text-muted); padding: 20px; line-height: 1.6; }
+
+        .contact-section { padding: 100px 0; position: relative; }
+        .contact-form-glow { background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--glass-border); padding: 30px; border-radius: 20px; box-shadow: var(--glass-shadow); position: relative; }
+        .contact-form-glow input, .contact-form-glow textarea { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 15px; width: 100%; margin-bottom: 20px; border-radius: 10px; transition: 0.3s; }
+        .contact-form-glow input:focus, .contact-form-glow textarea:focus { outline: none; border-color: var(--bright-sky); box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); background: rgba(0,0,0,0.5); }
+        .form-success { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.95); border-radius: 20px; display: flex; align-items: center; justify-content: center; flex-direction: column; opacity: 0; pointer-events: none; transition: 0.5s; }
+        .form-success.active { opacity: 1; pointer-events: all; }
+        .checkmark { font-size: 50px; color: var(--bright-sky); margin-bottom: 20px; animation: popIn 0.5s ease; }
+        @keyframes popIn { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(0, 210, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0); } }
+        .float-anim { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }
+        #scrollBtn { display: none; position: fixed; bottom: 20px; right: 30px; z-index: 99; border: none; outline: none; background-color: var(--bright-sky); color: var(--navy); cursor: pointer; padding: 15px; border-radius: 50%; font-size: 18px; box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); transition: 0.3s; }
+        #scrollBtn:hover { background-color: #fff; transform: translateY(-5px); }
+    </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="60">
+
+    <ul class="bg-bubbles"><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
+    <nav class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar" style="background: #fff;"></span><span class="icon-bar" style="background: #fff;"></span><span class="icon-bar" style="background: #fff;"></span>
+                </button>
+                <a class="navbar-brand" href="#">Aqua<span>Motion</span></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="accessories.html">Accessories</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html" class="btn-nav">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <h3>Advanced Purification</h3>
+                    <h1>The Future of <span class="type-text">Clean Water</span></h1>
+                    <p>Experience the depth of purity with our AI-driven Navy Series filtration systems.</p>
+                    <a href="#technology" class="btn-glow scroll-link">Discover More</a>
+                </div>
+            </div>
+        </div>
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#112240" />
+            </g>
+        </svg>
+    </section>
+
+    <section class="partners-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-xs-6 partner-logo">ORION</div>
+                <div class="col-md-2 col-xs-6 partner-logo">NEXUS</div>
+                <div class="col-md-2 col-xs-6 partner-logo">VORTEX</div>
+                <div class="col-md-2 col-xs-6 partner-logo">PURE</div>
+                <div class="col-md-2 col-xs-6 partner-logo">HYDRO</div>
+                <div class="col-md-2 col-xs-6 partner-logo">ZENITH</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology" class="tech-section">
+        <div class="container">
+            <div class="section-header reveal text-center" style="margin-bottom: 60px;">
+                <h2>Core Technology</h2>
+                <div class="line-bar"></div>
+                <p>Engineered with precision.</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4 reveal">
+                    <div class="tech-card glass-panel tilt-card">
+                        <div class="tech-card-inner"><div class="tech-icon"><i class="fa fa-microchip"></i></div><h3>Smart Sensors</h3><p>Real-time monitoring AI ensures every drop is perfectly balanced.</p></div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="tech-card glass-panel tilt-card">
+                        <div class="tech-card-inner"><div class="tech-icon"><i class="fa fa-filter"></i></div><h3>Nano-Fiber Mesh</h3><p>Navy-Grade filters remove contaminants 10x smaller than standard RO.</p></div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="tech-card glass-panel tilt-card">
+                        <div class="tech-card-inner"><div class="tech-icon"><i class="fa fa-leaf"></i></div><h3>Eco-Recovery</h3><p>Our system recovers 70% more water than traditional filters.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="process-section">
+        <div class="container">
+            <div class="section-header reveal text-center" style="margin-bottom: 60px;">
+                <h2>The Purification Process</h2>
+                <div class="line-bar"></div>
+                <p>4 Stages of Absolute Purity</p>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 reveal">
+                    <div class="process-step"><div class="step-num">01</div><i class="fa fa-align-justify step-icon"></i><h4>Sediment</h4><p>Removes large particles, dust, and rust.</p></div>
+                </div>
+                <div class="col-md-3 col-sm-6 reveal">
+                    <div class="process-step"><div class="step-num">02</div><i class="fa fa-filter step-icon"></i><h4>Carbon Arc</h4><p>Eliminates chlorine, odors, and VOCs.</p></div>
+                </div>
+                <div class="col-md-3 col-sm-6 reveal">
+                    <div class="process-step"><div class="step-num">03</div><i class="fa fa-crosshairs step-icon"></i><h4>RO Membrane</h4><p>Removes 99% of dissolved solids & bacteria.</p></div>
+                </div>
+                <div class="col-md-3 col-sm-6 reveal">
+                    <div class="process-step"><div class="step-num">04</div><i class="fa fa-diamond step-icon"></i><h4>Mineralizer</h4><p>Adds Calcium & Magnesium for taste.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contaminant-section">
+        <div class="container">
+            <div class="row contaminant-row reveal">
+                <div class="col-md-5">
+                    <h2 style="margin-bottom: 20px;">What We Eliminate</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 30px;">Our Navy Series membranes provide a microscopic shield against the most harmful waterborne contaminants.</p>
+                    <div class="progress-holder"><div class="progress-label"><span>Lead & Heavy Metals</span> <span>99.8%</span></div><div class="progress"><div class="progress-bar progress-bar-custom" data-width="99.8%" role="progressbar"></div></div></div>
+                    <div class="progress-holder"><div class="progress-label"><span>Bacteria & Viruses</span> <span>99.9%</span></div><div class="progress"><div class="progress-bar progress-bar-custom" data-width="99.9%" role="progressbar"></div></div></div>
+                    <div class="progress-holder"><div class="progress-label"><span>Chlorine & Fluoride</span> <span>98.5%</span></div><div class="progress"><div class="progress-bar progress-bar-custom" data-width="98.5%" role="progressbar"></div></div></div>
+                    <div class="progress-holder"><div class="progress-label"><span>Microplastics</span> <span>100%</span></div><div class="progress"><div class="progress-bar progress-bar-custom" data-width="100%" role="progressbar"></div></div></div>
+                </div>
+                <div class="col-md-6 col-md-offset-1 text-center hidden-xs hidden-sm">
+                    <div class="shield-icon"><i class="fa fa-shield"></i></div>
+                    <h3 style="color: var(--bright-sky); margin-top: 20px; text-shadow: 0 0 10px rgba(0,210,255,0.5);">Total Protection</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reality-check">
+        <div class="container reveal">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>Did You Know?</h2>
+                    <p style="font-size:16px; color:#ddd;">Groundwater in urban areas often contains TDS levels above 500ppm, which can cause long-term kidney issues. Standard boiling only kills bacteria but concentrates chemical impurities.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="reality-box text-center">
+                        <i class="fa fa-exclamation-triangle" style="font-size:40px; color:var(--bright-sky); margin-bottom:10px;"></i>
+                        <h4 style="color:var(--bright-sky);">Safe Limit: < 150 TDS</h4>
+                        <p style="margin:0;">AquaMotion ensures < 50 TDS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products-section">
+        <div class="container">
+            <div class="section-header reveal text-center" style="margin-bottom: 40px;">
+                <h2>The Neon Collection</h2>
+                <div class="line-bar" style="box-shadow: 0 0 10px #00d2ff;"></div>
+            </div>
+            <div class="product-filters reveal">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="home">Home</button>
+                <button class="filter-btn" data-filter="office">Office</button>
+                <button class="filter-btn" data-filter="portable">Portable</button>
+            </div>
+            <div class="row" id="product-grid">
+                <div class="col-md-4 reveal product-item" data-category="home">
+                    <div class="neon-card glass-panel">
+                        <div class="prod-img-glow"><i class="fa fa-tint"></i></div>
+                        <div class="prod-info text-center"><h3>Aqua Home Pro</h3><p style="color: var(--text-muted);">Under-sink RO + UV + Alk</p><span class="price-neon">$299</span><a href="contact.html" class="btn-neon">Configure</a></div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal product-item" data-category="portable">
+                    <div class="neon-card glass-panel">
+                        <div class="prod-img-glow"><i class="fa fa-cube"></i></div>
+                        <div class="prod-info text-center"><h3>Aqua Cube</h3><p style="color: var(--text-muted);">Compact Countertop Smart</p><span class="price-neon">$199</span><a href="contact.html" class="btn-neon">Configure</a></div>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal product-item" data-category="office">
+                    <div class="neon-card glass-panel">
+                        <div class="prod-img-glow"><i class="fa fa-building"></i></div>
+                        <div class="prod-info text-center"><h3>Aqua Enterprise</h3><p style="color: var(--text-muted);">High Capacity for Offices</p><span class="price-neon">$899</span><a href="contact.html" class="btn-neon">Configure</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="impact-section">
+        <div class="container">
+            <div class="section-header reveal text-center" style="margin-bottom: 40px;">
+                <h2>Our Global Impact</h2>
+                <div class="line-bar" style="background: var(--bright-sky);"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 reveal">
+                    <div class="stat-item"><i class="fa fa-globe" style="font-size: 40px; color: var(--bright-sky); margin-bottom: 15px;"></i><span class="stat-number" data-count="5">0</span><span style="font-size: 48px; color:var(--bright-sky); font-weight:800">M+</span><span class="stat-label">Plastic Bottles Saved</span></div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="stat-item"><i class="fa fa-users" style="font-size: 40px; color: var(--bright-sky); margin-bottom: 15px;"></i><span class="stat-number" data-count="120">0</span><span style="font-size: 48px; color:var(--bright-sky); font-weight:800">k</span><span class="stat-label">Happy Families</span></div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="stat-item"><i class="fa fa-tint" style="font-size: 40px; color: var(--bright-sky); margin-bottom: 15px;"></i><span class="stat-number" data-count="100">0</span><span style="font-size: 48px; color:var(--bright-sky); font-weight:800">M</span><span class="stat-label">Gallons Purified</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="reviews-section">
+        <div class="container">
+            <div class="section-header reveal text-center" style="margin-bottom: 50px;">
+                <h2>Happy Customers</h2>
+                <div class="line-bar"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 reveal">
+                    <div class="review-card glass-panel"><p class="review-text">"The water tastes absolutely amazing. Installation was quick and the neon design looks futuristic in my kitchen!"</p><div class="user-profile"><div class="user-img">JD</div><div><strong>John Doe</strong><br><small style="color: var(--text-muted);">Homeowner</small></div></div></div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="review-card glass-panel"><p class="review-text">"We installed the Enterprise unit in our office. The smart sensors are a game changer for maintenance."</p><div class="user-profile"><div class="user-img">SM</div><div><strong>Sarah Miller</strong><br><small style="color: var(--text-muted);">Office Manager</small></div></div></div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="review-card glass-panel"><p class="review-text">"Finally a filter that doesn't waste water. The eco-recovery feature was the selling point for us."</p><div class="user-profile"><div class="user-img">RB</div><div><strong>Robert Brown</strong><br><small style="color: var(--text-muted);">Eco Architect</small></div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="plans" class="service-plans-section">
+        <div class="container">
+            <div class="section-header reveal text-center" style="margin-bottom: 40px;"><h2>Smart Service Plans</h2><div class="line-bar"></div><p>Hassle-free maintenance for uninterrupted purity.</p></div>
+            <div class="pricing-toggle reveal"><span class="toggle-label active" id="monthly-label">Monthly</span><label class="switch"><input type="checkbox" id="price-switch"><span class="slider"></span></label><span class="toggle-label" id="yearly-label">Yearly <span style="font-size:10px; color:var(--bright-sky);">(Save 20%)</span></span></div>
+            <div class="row">
+                <div class="col-md-4 reveal"><div class="plan-card glass-panel"><div class="plan-name">Basic</div><div class="plan-price" data-monthly="9" data-yearly="99"><small>$</small><span class="price-val">9</span><small class="period">/mo</small></div><ul class="plan-features"><li>2 Scheduled Filter Changes</li><li>Water Quality Test</li><li>Standard Support</li><li>-</li></ul><a href="contact.html" class="btn-plan">Choose Basic</a></div></div>
+                <div class="col-md-4 reveal"><div class="plan-card popular glass-panel"><span class="badge-popular">Most Popular</span><div class="plan-name">Smart Care</div><div class="plan-price" data-monthly="15" data-yearly="149"><small>$</small><span class="price-val">15</span><small class="period">/mo</small></div><ul class="plan-features"><li>3 Scheduled Filter Changes</li><li>Deep Cleaning & Sanitization</li><li>Priority 24/7 Support</li><li>Membrane Protection</li></ul><a href="contact.html" class="btn-plan">Choose Smart</a></div></div>
+                <div class="col-md-4 reveal"><div class="plan-card glass-panel"><div class="plan-name">Premium</div><div class="plan-price" data-monthly="25" data-yearly="249"><small>$</small><span class="price-val">25</span><small class="period">/mo</small></div><ul class="plan-features"><li>Unlimited Filter Changes</li><li>All Spare Parts Covered</li><li>VIP Dedicated Technician</li><li>Relocation Assistance</li></ul><a href="contact.html" class="btn-plan">Choose Premium</a></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-header reveal text-center" style="margin-bottom: 50px;"><h2>Common Questions</h2><div class="line-bar" style="background: #fff;"></div></div>
+            <div class="row"><div class="col-md-8 col-md-offset-2 reveal"><div class="panel-group" id="accordion">
+                <div class="panel panel-default"><div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><h4 class="panel-title"><a>How often do I need to change filters?</a></h4></div><div id="collapse1" class="panel-collapse collapse in"><div class="panel-body">We recommend changing the sediment and carbon filters every 6 months, and the RO membrane every 12-18 months depending on usage.</div></div></div>
+                <div class="panel panel-default"><div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse2"><h4 class="panel-title"><a>Does it require electricity?</a></h4></div><div id="collapse2" class="panel-collapse collapse"><div class="panel-body">Yes, the AquaMotion system uses a low-voltage pump to push water through the RO membrane and power the UV purification.</div></div></div>
+                <div class="panel panel-default"><div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse3"><h4 class="panel-title"><a>Is installation included?</a></h4></div><div id="collapse3" class="panel-collapse collapse"><div class="panel-body">Yes! Professional installation is included with all Home Pro and Enterprise models within our service areas.</div></div></div>
+            </div></div></div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 reveal">
+                    <h2>Get in Touch</h2><p style="color: var(--text-muted); margin-bottom: 30px;">Ready to upgrade? Fill out the form and our team will schedule a free water quality test.</p>
+                    <ul class="list-unstyled" style="font-size: 16px; line-height: 2; color: #fff;"><li><i class="fa fa-map-marker" style="color: var(--bright-sky); margin-right: 10px;"></i> 101 Ocean Drive, Water City</li><li><i class="fa fa-phone" style="color: var(--bright-sky); margin-right: 10px;"></i> +1 800-AQUA-PRO</li><li><i class="fa fa-envelope" style="color: var(--bright-sky); margin-right: 10px;"></i> hello@aquamotion.com</li></ul>
+                </div>
+                <div class="col-md-6 col-md-offset-1 reveal">
+                    <div class="contact-form-glow">
+                        <form id="quoteForm">
+                            <div class="form-group"><input type="text" id="name" placeholder="Your Name" required></div>
+                            <div class="form-group"><input type="email" id="email" placeholder="Email Address" required></div>
+                            <div class="form-group"><textarea id="message" rows="3" placeholder="Message"></textarea></div>
+                            <button type="submit" class="btn-glow" style="width: 100%; border-radius: 5px;">Send Request</button>
+                        </form>
+                        <div class="form-success"><div class="checkmark"><i class="fa fa-check-circle"></i></div><h3>Request Received!</h3><p>We will contact you shortly.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #020c1b; padding: 40px 0; color: var(--text-muted); text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container"><p>&copy; 2025 AquaMotion Systems. All Rights Reserved.</p></div>
+    </footer>
+
+    <button id="scrollBtn" title="Go to top"><i class="fa fa-arrow-up"></i></button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".navbar a, .scroll-link, .btn-plan, .btn-neon").on('click', function(event) { if (this.hash !== "") { event.preventDefault(); var hash = this.hash; $('html, body').animate({ scrollTop: $(hash).offset().top }, 800); } });
+            $(window).scroll(function() { if ($(document).scrollTop() > 50) { $('.navbar-fixed-top').addClass('scrolled'); $('#scrollBtn').fadeIn(); } else { $('.navbar-fixed-top').removeClass('scrolled'); $('#scrollBtn').fadeOut(); } });
+            $('#scrollBtn').click(function(){ $('html, body').animate({scrollTop : 0},800); });
+            
+            function reveal() { var reveals = document.querySelectorAll(".reveal"); var windowHeight = window.innerHeight; var elementVisible = 50; for (var i = 0; i < reveals.length; i++) { var elementTop = reveals[i].getBoundingClientRect().top; if (elementTop < windowHeight - elementVisible) { reveals[i].classList.add("active"); if($(reveals[i]).find('.progress-bar-custom').length){ $(reveals[i]).find('.progress-bar-custom').each(function(){ $(this).css('width', $(this).attr('data-width')); }); } if($(reveals[i]).find('.stat-number').length){ $(reveals[i]).find('.stat-number').each(function () { var $this = $(this); if(!$this.hasClass('counted')){ $this.addClass('counted'); jQuery({ Counter: 0 }).animate({ Counter: $this.attr('data-count') }, { duration: 2000, easing: 'swing', step: function () { $this.text(Math.ceil(this.Counter)); } }); } }); } } } }
+            window.addEventListener("scroll", reveal); reveal(); // Trigger immediately
+            
+            $('.filter-btn').click(function() { $('.filter-btn').removeClass('active'); $(this).addClass('active'); var category = $(this).attr('data-filter'); if(category == 'all'){ $('.product-item').fadeIn(500); } else { $('.product-item').hide(); $('.product-item[data-category="'+category+'"]').fadeIn(500); } });
+            $('#price-switch').change(function() { if($(this).is(':checked')) { $('#monthly-label').removeClass('active'); $('#yearly-label').addClass('active'); $('.period').text('/yr'); $('.plan-price').each(function() { var yearlyPrice = $(this).attr('data-yearly'); $(this).find('.price-val').prop('Counter',0).animate({ Counter: yearlyPrice }, { duration: 500, step: function(now) { $(this).text(Math.ceil(now)); } }); }); } else { $('#yearly-label').removeClass('active'); $('#monthly-label').addClass('active'); $('.period').text('/mo'); $('.plan-price').each(function() { var monthlyPrice = $(this).attr('data-monthly'); $(this).find('.price-val').prop('Counter',0).animate({ Counter: monthlyPrice }, { duration: 500, step: function(now) { $(this).text(Math.ceil(now)); } }); }); } });
+            $('.tilt-card').mousemove(function(e){ var card = $(this); var offset = card.offset(); var width = card.width(); var height = card.height(); var centerX = offset.left + width / 2; var centerY = offset.top + height / 2; var mouseX = e.pageX - centerX; var mouseY = e.pageY - centerY; var rotateX = (mouseY / height) * -15; var rotateY = (mouseX / width) * 15; card.css('transform', `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`); });
+            $('.tilt-card').mouseleave(function(){ $(this).css('transform', 'perspective(1000px) rotateX(0) rotateY(0)'); });
+            $("#quoteForm").submit(function(e){ e.preventDefault(); var btn = $(this).find('button'); var originalText = btn.text(); btn.text('Sending...').css('opacity', '0.7'); setTimeout(function(){ $('.form-success').addClass('active'); btn.text(originalText).css('opacity', '1'); $("#quoteForm")[0].reset(); setTimeout(function(){ $('.form-success').removeClass('active'); }, 3000); }, 1500); });
+        });
+    </script>
+</body>
+</html>
