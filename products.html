@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products | AquaMotion</title>
+    <title>Products | Geethansh Water Solutions</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -17,7 +17,8 @@
 
         h1, h2, h3, h5 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #fff; }
         .navbar-custom { background: rgba(10, 25, 47, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 15px 0; }
-        .navbar-brand { font-weight: 800; font-size: 24px; color: #fff !important; letter-spacing: 2px; }
+        /* Updated font size for longer name */
+        .navbar-brand { font-weight: 800; font-size: 20px; color: #fff !important; letter-spacing: 1px; }
         .navbar-brand span { color: var(--bright-sky); }
         .navbar-nav > li > a { color: rgba(255,255,255,0.8) !important; font-size: 12px; font-weight: 600; text-transform: uppercase; }
         /* FIX WHITE BG */
@@ -34,8 +35,28 @@
 
         .glass-panel { background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 0; overflow: hidden; margin-bottom: 30px; transition: 0.4s; }
         .glass-panel:hover { border-color: var(--bright-sky); transform: translateY(-10px); }
-        .prod-img { height: 220px; background: radial-gradient(circle at center, rgba(0,210,255,0.1), transparent 70%); display: flex; align-items: center; justify-content: center; font-size: 70px; color: var(--bright-sky); transition: 0.5s; text-shadow: 0 0 20px rgba(0,210,255,0.5); }
-        .glass-panel:hover .prod-img { transform: scale(1.1); filter: drop-shadow(0 0 30px var(--bright-sky)); }
+        
+        /* Updated Product Image Wrapper */
+        .prod-img-wrapper {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, rgba(0, 210, 255, 0.1), transparent 70%);
+            padding: 20px;
+        }
+        .prod-img-wrapper img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+            transition: transform 0.5s;
+        }
+        .glass-panel:hover .prod-img-wrapper img {
+            transform: scale(1.05);
+        }
+
         .prod-info { padding: 25px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
         .price-tag { display: block; font-size: 24px; color: var(--bright-sky); margin: 15px 0; font-weight: 700; text-shadow: 0 0 10px rgba(0,210,255,0.4); }
         .btn-prod { border: 1px solid var(--bright-sky); color: var(--bright-sky); background: rgba(0,210,255,0.05); padding: 10px 30px; border-radius: 30px; text-decoration: none; display: inline-block; font-weight: 700; transition:0.3s; text-transform:uppercase; }
@@ -55,7 +76,7 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"><span class="icon-bar" style="background:#fff;"></span><span class="icon-bar" style="background:#fff;"></span><span class="icon-bar" style="background:#fff;"></span></button>
-                <a class="navbar-brand" href="index.html">Aqua<span>Motion</span></a>
+                <a class="navbar-brand" href="index.html">Geethansh <span>Water Solutions</span></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
@@ -73,13 +94,87 @@
 
     <section class="page-hero"><div class="container"><h1 class="reveal">Our Products</h1><div class="hero-line reveal"></div><p class="reveal">Advanced RO, UV, and Alkaline filtration systems.</p></div></section>
 
-    <section style="padding: 60px 0;"><div class="container"><div class="row"><div class="col-md-4 reveal"><div class="glass-panel"><div class="prod-img"><i class="fa fa-tint"></i></div><div class="prod-info"><h3>Aqua Home Pro</h3><p>Residential RO+UV</p><span class="price-tag">$299</span><a href="contact.html" class="btn-prod">Buy Now</a></div></div></div><div class="col-md-4 reveal"><div class="glass-panel"><div class="prod-img"><i class="fa fa-building"></i></div><div class="prod-info"><h3>Aqua Enterprise</h3><p>Commercial Plant</p><span class="price-tag">$899</span><a href="contact.html" class="btn-prod">Buy Now</a></div></div></div><div class="col-md-4 reveal"><div class="glass-panel"><div class="prod-img"><i class="fa fa-cube"></i></div><div class="prod-info"><h3>Aqua Cube</h3><p>Portable Smart Filter</p><span class="price-tag">$199</span><a href="contact.html" class="btn-prod">Buy Now</a></div></div></div></div></div></section>
+    <section style="padding: 60px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 reveal">
+                    <div class="glass-panel">
+                        <div class="prod-img-wrapper">
+                            <img src="assets/1.png" alt="Aqua V5 - V101">
+                        </div>
+                        <div class="prod-info">
+                            <h3>Aqua V5 (V101)</h3>
+                            <p style="color: var(--text-muted); font-size: 13px;">Next Gen RO+UV+UF | Black Edition</p>
+                            <p style="color: #fff; font-size: 12px; margin-bottom: 5px;"><i class="fa fa-check" style="color: var(--bright-sky)"></i> Zinc + Copper + Alkaline</p>
+                            <a href="contact.html" class="btn-prod" style="margin-top: 15px;">Enquire Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 reveal">
+                    <div class="glass-panel">
+                        <div class="prod-img-wrapper">
+                            <img src="assets/2.png" alt="Aqua V5 - V111">
+                        </div>
+                        <div class="prod-info">
+                            <h3>Aqua V5 (V111)</h3>
+                            <p style="color: var(--text-muted); font-size: 13px;">Next Gen RO+UV+UF | Blue Edition</p>
+                            <p style="color: #fff; font-size: 12px; margin-bottom: 5px;"><i class="fa fa-check" style="color: var(--bright-sky)"></i> Zinc + Copper + Alkaline</p>
+                            <a href="contact.html" class="btn-prod" style="margin-top: 15px;">Enquire Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 reveal">
+                    <div class="glass-panel">
+                        <div class="prod-img-wrapper">
+                            <img src="assets/3.png" alt="Aqua V5 - V112">
+                        </div>
+                        <div class="prod-info">
+                            <h3>Aqua V5 (V112)</h3>
+                            <p style="color: var(--text-muted); font-size: 13px;">Next Gen RO+UV+UF | Maroon Edition</p>
+                            <p style="color: #fff; font-size: 12px; margin-bottom: 5px;"><i class="fa fa-check" style="color: var(--bright-sky)"></i> Zinc + Copper + Alkaline</p>
+                            <a href="contact.html" class="btn-prod" style="margin-top: 15px;">Enquire Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 reveal">
+                    <div class="glass-panel">
+                        <div class="prod-img-wrapper">
+                            <img src="assets/4.png" alt="Aqua V5 - V113">
+                        </div>
+                        <div class="prod-info">
+                            <h3>Aqua V5 (V113)</h3>
+                            <p style="color: var(--text-muted); font-size: 13px;">Next Gen RO+UV+UF | Grey Edition</p>
+                            <p style="color: #fff; font-size: 12px; margin-bottom: 5px;"><i class="fa fa-check" style="color: var(--bright-sky)"></i> Zinc + Copper + Alkaline</p>
+                            <a href="contact.html" class="btn-prod" style="margin-top: 15px;">Enquire Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 reveal">
+                    <div class="glass-panel">
+                        <div class="prod-img-wrapper">
+                            <img src="assets/5.png" alt="Aqua V5 - V114">
+                        </div>
+                        <div class="prod-info">
+                            <h3>Aqua V5 (V114)</h3>
+                            <p style="color: var(--text-muted); font-size: 13px;">Next Gen RO+UV+UF | Silver Edition</p>
+                            <p style="color: #fff; font-size: 12px; margin-bottom: 5px;"><i class="fa fa-check" style="color: var(--bright-sky)"></i> Zinc + Copper + Alkaline</p>
+                            <a href="contact.html" class="btn-prod" style="margin-top: 15px;">Enquire Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section style="padding: 60px 0;"><div class="container"><div class="glass-panel reveal" style="padding: 40px;"><h2 class="text-center" style="margin-bottom:40px; color:var(--bright-sky);">6-Stage Filtration Technology</h2><div class="row"><div class="col-md-2 col-xs-4 stage-box"><span class="stage-num">1</span><h5>Pre-Filter</h5></div><div class="col-md-2 col-xs-4 stage-box"><span class="stage-num">2</span><h5>Carbon</h5></div><div class="col-md-2 col-xs-4 stage-box"><span class="stage-num">3</span><h5>Sediment</h5></div><div class="col-md-2 col-xs-4 stage-box"><span class="stage-num">4</span><h5>RO</h5></div><div class="col-md-2 col-xs-4 stage-box"><span class="stage-num">5</span><h5>UV Lamp</h5></div><div class="col-md-2 col-xs-4 stage-box"><span class="stage-num">6</span><h5>Mineral</h5></div></div></div></div></section>
 
     <section class="warranty-banner reveal"><div class="container"><i class="fa fa-shield fa-3x" style="margin-bottom:15px; color:var(--bright-sky); text-shadow:0 0 15px var(--bright-sky);"></i><h3>1 Year Comprehensive Warranty</h3><p>We cover all parts, filters, and labor costs for the first 12 months.</p></div></section>
 
-    <footer><div class="container"><p>&copy; 2025 AquaMotion Systems. All Rights Reserved.</p></div></footer>
+    <footer><div class="container"><p>&copy; 2025 Geethansh Water Solutions. All Rights Reserved.</p></div></footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script>$(document).ready(function(){ function reveal() { var reveals = document.querySelectorAll(".reveal"); var windowHeight = window.innerHeight; for (var i = 0; i < reveals.length; i++) { if (reveals[i].getBoundingClientRect().top < windowHeight - 50) { reveals[i].classList.add("active"); } } } $(window).scroll(reveal); reveal(); });</script>
